@@ -31,7 +31,7 @@ const DEFAULT_FIELD_IDENTITY_ARGS: readonly string[] = [];
 const getFieldIdentity = (
   fieldName: string,
   identityArgs: readonly string[],
-  resolveArgs: unknown
+  resolveArgs: unknown,
 ): string => {
   const argsKey = identityArgs.map((arg) => get(resolveArgs, arg));
   return [fieldName, ...argsKey].join(':');
@@ -44,7 +44,7 @@ const getFieldIdentity = (
  */
 const getGraphQLRateLimiter = (
   // Main config (e.g. the config passed to the createRateLimitDirective func)
-  userConfig: GraphQLRateLimitConfig
+  userConfig: GraphQLRateLimitConfig,
 ): ((
   {
     args,
@@ -63,7 +63,7 @@ const getGraphQLRateLimiter = (
     window,
     message,
     uncountRejected,
-  }: GraphQLRateLimitDirectiveArgs
+  }: GraphQLRateLimitDirectiveArgs,
 ) => Promise<string | undefined>) => {
   // Default directive config
   const defaultConfig = {
@@ -74,7 +74,7 @@ const getGraphQLRateLimiter = (
     // Required
     identifyContext: () => {
       throw new Error(
-        'You must implement a createRateLimitDirective.config.identifyContext'
+        'You must implement a createRateLimitDirective.config.identifyContext',
       );
     },
     store: new InMemoryStore(),
@@ -115,7 +115,7 @@ const getGraphQLRateLimiter = (
       message,
       readOnly,
       uncountRejected,
-    }: GraphQLRateLimitDirectiveArgs
+    }: GraphQLRateLimitDirectiveArgs,
   ): Promise<string | undefined> => {
     // Identify the user or client on the context
     const contextIdentity = identifyContext(context);
@@ -125,7 +125,7 @@ const getGraphQLRateLimiter = (
     const fieldIdentity = getFieldIdentity(
       info.fieldName,
       identityArgs || DEFAULT_FIELD_IDENTITY_ARGS,
-      args
+      args,
     );
 
     // User configured maximum calls to this field

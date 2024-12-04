@@ -10,7 +10,7 @@ abstract class Store {
   public abstract setForIdentity(
     identity: Identity,
     timestamps: readonly number[],
-    windowMs?: number
+    windowMs?: number,
   ): void | Promise<void>;
 
   /**
@@ -19,7 +19,7 @@ abstract class Store {
    * @param identity
    */
   public abstract getForIdentity(
-    identity: Identity
+    identity: Identity,
   ): readonly number[] | Promise<readonly number[]>;
 }
 

@@ -20,12 +20,12 @@ import { getGraphQLRateLimiter } from './get-graphql-rate-limiter';
  * @param customConfig
  */
 const createRateLimitDirective = (
-  customConfig: GraphQLRateLimitConfig = {}
+  customConfig: GraphQLRateLimitConfig = {},
 ): any => {
   const rateLimiter = getGraphQLRateLimiter(customConfig);
   class GraphQLRateLimit extends SchemaDirectiveVisitor {
     public static getDirectiveDeclaration(
-      directiveName: string
+      directiveName: string,
     ): GraphQLDirective {
       return new GraphQLDirective({
         args: {
@@ -66,7 +66,7 @@ const createRateLimitDirective = (
             context,
             info,
           },
-          this.args
+          this.args,
         );
 
         if (errorMessage) {

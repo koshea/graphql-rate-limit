@@ -13,7 +13,7 @@ import { RateLimitError } from './rate-limit-error';
  * ```
  */
 const createRateLimitRule = (
-  config: GraphQLRateLimitConfig
+  config: GraphQLRateLimitConfig,
 ): ((fieldConfig: GraphQLRateLimitDirectiveArgs) => IRule) => {
   const rateLimiter = getGraphQLRateLimiter(config);
 
@@ -26,7 +26,7 @@ const createRateLimitRule = (
           context,
           info: info as GraphQLResolveInfo, // I hope this is so.
         },
-        fieldConfig
+        fieldConfig,
       );
 
       if (errorMessage) {

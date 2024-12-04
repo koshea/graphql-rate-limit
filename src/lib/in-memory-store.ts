@@ -16,7 +16,7 @@ class InMemoryStore implements Store {
 
   public setForIdentity(
     identity: Identity,
-    timestamps: readonly number[]
+    timestamps: readonly number[],
   ): void {
     // tslint:disable-next-line no-object-mutation
     this.state = {

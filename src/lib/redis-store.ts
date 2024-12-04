@@ -13,7 +13,7 @@ class RedisStore implements Store {
   public setForIdentity(
     identity: Identity,
     timestamps: readonly number[],
-    windowMs?: number
+    windowMs?: number,
   ): Promise<void> {
     return new Promise<void>((res, rej): void => {
       const expiry = windowMs
@@ -31,7 +31,7 @@ class RedisStore implements Store {
         (err: Error | null): void => {
           if (err) return rej(err);
           return res();
-        }
+        },
       );
     });
   }
@@ -46,7 +46,7 @@ class RedisStore implements Store {
             return rej(err);
           }
           return res(obj ? JSON.parse(obj) : []);
-        }
+        },
       );
     });
   }
