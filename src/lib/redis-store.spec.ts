@@ -7,37 +7,37 @@ test('RedisStore sets and gets correct timestamps', async (t) => {
 
   await storeInstance.setForIdentity(
     { contextIdentity: 'foo', fieldIdentity: 'bar' },
-    [1, 2, 3]
+    [1, 2, 3],
   );
   t.deepEqual(
     await storeInstance.getForIdentity({
       contextIdentity: 'foo',
       fieldIdentity: 'bar',
     }),
-    [1, 2, 3]
+    [1, 2, 3],
   );
 
   await storeInstance.setForIdentity(
     { contextIdentity: 'foo', fieldIdentity: 'bar2' },
-    [4, 5]
+    [4, 5],
   );
   t.deepEqual(
     await storeInstance.getForIdentity({
       contextIdentity: 'foo',
       fieldIdentity: 'bar2',
     }),
-    [4, 5]
+    [4, 5],
   );
 
   await storeInstance.setForIdentity(
     { contextIdentity: 'foo', fieldIdentity: 'bar' },
-    [10, 20]
+    [10, 20],
   );
   t.deepEqual(
     await storeInstance.getForIdentity({
       contextIdentity: 'foo',
       fieldIdentity: 'bar',
     }),
-    [10, 20]
+    [10, 20],
   );
 });

@@ -38,7 +38,7 @@ test('rate limit with schema directive', async (t) => {
     schema,
     'query { test }',
     {},
-    { id: '1' }
+    { id: '1' },
   );
   t.falsy(data2);
   t.truthy(errors);
@@ -64,14 +64,14 @@ test('batch query should error when rate limit exceeded', async (t) => {
     }),
     shield(
       { Query: { test: rule({ max: 1, window: '1s' }) } },
-      { allowExternalErrors: true }
-    )
+      { allowExternalErrors: true },
+    ),
   );
   const { data } = await graphql(
     schema,
     'query { test otherTest: test otherOtherTest: test }',
     {},
-    { id: '1' }
+    { id: '1' },
   );
   t.is(data, null);
 });
@@ -88,14 +88,14 @@ test('batch query should succeed when within rate limit', async (t) => {
     }),
     shield(
       { Query: { test: rule({ max: 5, window: '1s' }) } },
-      { allowExternalErrors: true }
-    )
+      { allowExternalErrors: true },
+    ),
   );
   const { data } = await graphql(
     schema,
     'query { test otherTest: test otherOtherTest: test }',
     {},
-    { id: '1' }
+    { id: '1' },
   );
   t.deepEqual(data, {
     test: 'Result',
@@ -113,7 +113,7 @@ test('rate limit with graphql shield', async (t) => {
       resolvers: { Query: { test: () => 'Result' } },
       typeDefs: 'type Query { test: String! }',
     }),
-    shield({ Query: { test: rule({ max: 1, window: '1s' }) } })
+    shield({ Query: { test: rule({ max: 1, window: '1s' }) } }),
   );
 
   const res = await graphql(schema, 'query { test }', {}, { id: '1' });
@@ -142,7 +142,7 @@ test('rate limit with base rate limiter', async (t) => {
         test: async (parent, args, context, info) => {
           const errorMessage = await rateLimiter(
             { parent, args, context, info },
-            { max: 1, window: '1s' }
+            { max: 1, window: '1s' },
           );
           if (errorMessage) throw new Error(errorMessage);
           return 'Result';
