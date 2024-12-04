@@ -15,15 +15,14 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
       - name: Install node v${{ matrix.node-version }}
         uses: actions/setup-node@v4
         with:
           node-version: ${{ matrix.node-version }}
           cache: "pnpm"
-      - uses: pnpm/action-setup@v4
-        with:
-          run_install: |
-            - args: [--frozen-lockfile, --reporter=silent]
+      - name: Install
+        run: pnpm install --frozen-lockfile --reporter=silent
       - name: Lint
         run: pnpm lint
       - name: Build dist
